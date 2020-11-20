@@ -1,0 +1,43 @@
+const innerAsyncFunctionThatThrows = async () => {
+    throw new Error('Some Error happened in inner async function')
+}
+
+const patientSave = async () => {
+    setTimeout((_) => _, 1000)
+    return 'Patient saved'
+}
+
+const saveResourceOne = async () => {
+    const saved = () => {
+        console.log('Trying to save resource one')
+        throw new Error('Something went wrong')
+    }
+    setTimeout(() => saved(), 1000)
+}
+
+const saveResourceTwo = async () => {
+    const saved = () => 'Second resource was fulfilled'
+    setTimeout(() => saved(), 1000)
+}
+
+const saveResourceThree = async () => {
+    const saved = () => 'Third resource was fulfilled'
+    setTimeout(() => saved(), 1000)
+}
+
+const promiseMagic = async () => {
+    const patient = await patientSave()
+    const allPromises = [saveResourceOne, saveResourceTwo, saveResourceThree]
+    const listOfSavePromises = Promise.allSettled(allPromises)
+        .then(async res => {
+            console.log('then:', res)
+            await innerAsyncFunctionThatThrows()
+        })
+        .catch(reason => console.log('Mellow Catch Place One: ', reason))
+
+    return {patient: patient, listOfPromises: listOfSavePromises}
+}
+
+module.exports = {
+    promiseMagic
+}

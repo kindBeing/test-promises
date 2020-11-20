@@ -1,0 +1,38 @@
+// const innerAsyncFunctionThatThrows = async () => {
+//     throw new Error('Some Error happened in inner async function')
+// }
+//
+// const promiseMagic = async () => {
+//     const resourceOne = new Promise((resolveOne, rejectOne) => {
+//         setTimeout(() => resolveOne('First resource was fulfilled'), 1000)
+//     })
+//     const resourceTwo = new Promise((resolveTwo, rejectTwo) => {
+//         setTimeout(() => resolveTwo('Second resource was fulfilled'), 2000)
+//     })
+//     const resourceThree = new Promise((resolveThree, rejectThree) => {
+//         setTimeout(() => rejectThree('Third resource was rejected'), 1000)
+//     })
+//
+//     resourceOne
+//         .then(async result => {
+//             console.log(result)
+//             // throw new Error('some error happened in async then function')
+//         })
+//     // .catch(reason => console.log('Catch resource one throw error', reason))
+//
+//     const allPromises = [resourceOne, resourceTwo, resourceThree]
+//
+//     const variablePassedAround = Promise.allSettled(allPromises)
+//         .then(async res => {
+//             // console.log('then:', res)
+//             // await innerAsyncFunctionThatThrows()
+//         })
+//         .catch(rea => console.log('catch:', rea))
+//
+//
+//     return {magicString: 'MagicString', listOfPromises: variablePassedAround}
+// }
+//
+// module.exports = {
+//     promiseMagic
+// }
